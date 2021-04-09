@@ -22,8 +22,20 @@ const QuestionBox = ({ question, disabled, selected}) => {
          </button>
         ))}
         { disabled && 
-          <div>
-            {feedback ? question.feedback_true : question.feedback_false}
+          <div className={feedback ? 'feedback_true' : 'feedback_false'}>
+            {feedback ? 
+              <>
+                <span class="material-icons">check_circle</span>
+                &nbsp;
+                {question.feedback_true} 
+              </>
+              : 
+              <>
+                <span class="material-icons">cancel</span>
+                &nbsp;
+                {question.feedback_false}
+              </>
+            }
           </div> 
         }
     </div>

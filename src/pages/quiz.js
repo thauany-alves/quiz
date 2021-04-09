@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import quiz from '../data.json';
 import QuestionBox from '../components/QuestionBox';
 
@@ -24,8 +24,6 @@ export default function Quiz(){
       setRespUser([...respUser, response]);
     }
   };
-
-  
     
   const sendResponses = () => {
     console.log('Resps: ', respUser);
@@ -39,13 +37,13 @@ export default function Quiz(){
   }
 
   return(
-    <>
+    <div className="quizBox">
       <header>
         <h1>{quiz.title}</h1>
-        <a href={quiz.url} rel="noreferrer" target="_blank">See this video</a>
+        <a href={quiz.url} rel="noreferrer" target="_blank">See a video</a>
       </header>
       
-      <main>
+      <div className="card_main">
         {quiz.questions_answers.map((question) => 
           <QuestionBox question={question} key={question.id} disabled={showResult}
             selected={(answer)  => {
@@ -54,14 +52,21 @@ export default function Quiz(){
           />
         )}
         <br/>
-        <button type='submit' onClick={sendResponses} disabled={showResult}> Submit</button>
-      </main>
+        {showResult ?
+         ( <div className="score-board">
+            <span class="material-icons">emoji_events</span>
+            &nbsp;
+            <div className="score"> 
+              Your score is {score}/{numQuestions} correct answer !!! 
+            </div>
+            </div>
+         ): (
+          <button className="submitBtn" type='submit' onClick={sendResponses} disabled={showResult}> Submit</button>
+         )}
+        
+      </div>
        
-      {showResult &&
-        <div className="score-board">
-          <div className="score"> Your score is {score} / {numQuestions} correct answer ! ! ! </div>
-        </div>
-      }
-    </>
+      
+    </div>
   );
 }

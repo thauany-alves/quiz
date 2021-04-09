@@ -1,21 +1,131 @@
-body {
+:root {
+  --color-green: #50fa7b;
+  --color-purple: #7159c1;
+  --secondary-color: #6679e7;
+}
+
+*{
   margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--color-purple);
+  color: white;
+  font-size: 18px;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.quizBox{
+  width: 100%; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+header{
+  padding: 20px;
+}
+
+h1{
+  padding-bottom: 10px;
+}
+
+a{
+  color: aliceblue;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+a:hover{
+  color: var(--color-green);
+  transition: color 250ms ease-in-out;
+}
+
+.card_main{
+  background-color: white;
+  color: #7159c1;
+  width: 800px;
+  margin: 12px 18px;
+  border: 1px solid lightblue;
+  border-radius: 16px;
+  padding: 20px;
+}
+
+.questionBox{
+  display: flex;
+  flex-direction: column;
+  margin: 18px;
+}
+
+.question{
+  align-self: flex-start;
+  padding-left: 24px;
+  font-size: 20px;
+  font-weight: bold; 
+  color: gray;
+}
+
+button{
+  padding: 8px 32px;
+  background: var(--color-purple);
+  color: gray;
+  border-color: lightblue;
+  border-radius: 4px;
+  margin-top: 8px;
+  width: 680px;
+  
+  font-size: 16px;
+  font-weight: bold;
+  box-shadow: 1px 1px 1px lightblue;
+}
+
+button:hover{
+  filter: brightness(90%);
+}
+
+.submitBtn{
+  background-color: var(--color-green);
 }
 
 .selectedBtn{
-  background-color: green;
+  align-self: center;
+  color: white;
+  background-color: var(--secondary-color);
 }
 
 .answerBtn{
-  background-color: lightblue;
+  align-self: center;
+  background-color: white;
+}
+
+.feedback_true{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-green);
+  font-weight: bold;
+}
+
+.feedback_false{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  color: rgb(240, 86, 86);
+  font-weight: bold;
+}
+
+.score-board{
+  font-weight: bold;
+  font-size: 28px;
+  padding-bottom: 20px;
+}
+.score-board span{
+  font-size: 48px;
 }
