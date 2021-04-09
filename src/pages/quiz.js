@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import quiz from '../data.json';
-import Result from '../components/Result';
 import QuestionBox from '../components/QuestionBox';
-
-
 
 export default function Quiz(){ 
   const [showResult, setshowResult] = useState(false);
@@ -11,35 +8,27 @@ export default function Quiz(){
   const [score, setScore] = useState(0);
   const numQuestions = quiz.questions_answers.length;
 
-  useEffect(()=>{
-    
-  },[respUser, numQuestions])
-
-  const playAgain = () => {
-    setRespUser([]);
-    setScore(0);
-    setshowResult(false);
-  };
-
-  const recorAnswer = (answer, key) => {
+  const recorAnswer = (answer, question_id) => {
     let existResp;
     if(respUser.length > 0) {
-      existResp = respUser.filter(r => r.q_id !== key);
+      existResp = respUser.filter(r => r.q_id !== question_id);
     }
     const response = {
       answer_id: answer.id,
       answer_is_true: answer.is_true,
-      q_id: key,
+      q_id: question_id,
     }
     if(existResp) {
       setRespUser([...existResp, response]);
     } else {
       setRespUser([...respUser, response]);
-    } 
+    }
   };
+
+  
     
   const sendResponses = () => {
-    console.log(respUser);
+    console.log('Resps: ', respUser);
     if(respUser.length === numQuestions){
       const answers_corrects = respUser.filter(r => r.answer_is_true);
       setScore(answers_corrects.length);
@@ -56,27 +45,22 @@ export default function Quiz(){
         <a href={quiz.url} rel="noreferrer" target="_blank">See this video</a>
       </header>
       
-      {!showResult &&
-        <>
-          {quiz.questions_answers.map(({text, answers, id}) => 
-            <QuestionBox question={text} answers={answers} key={id}
-              selected={(answer)  => recorAnswer(answer, id)}
-            />
-          )}
-          <br/>
-          <button type='button' onClick={sendResponses}>Submit</button>
-        </>
-       }
+      <main>
+        {quiz.questions_answers.map((question) => 
+          <QuestionBox question={question} key={question.id} disabled={showResult}
+            selected={(answer)  => {
+              recorAnswer(answer, question.id)
+            }}
+          />
+        )}
+        <br/>
+        <button type='submit' onClick={sendResponses} disabled={showResult}> Submit</button>
+      </main>
        
-      {showResult
-        ? (
-            <Result 
-              numQuestions={numQuestions}
-              score={score}
-              playAgain={playAgain}
-            />
-          )
-        : null
+      {showResult &&
+        <div className="score-board">
+          <div className="score"> Your score is {score} / {numQuestions} correct answer ! ! ! </div>
+        </div>
       }
     </>
   );
